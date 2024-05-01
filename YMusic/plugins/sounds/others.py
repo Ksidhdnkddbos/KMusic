@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
-
+from filters import command
 from YMusic import app
 from YMusic.utils.queue import clear_queue
 from YMusic.utils.loop import get_loop, set_loop
