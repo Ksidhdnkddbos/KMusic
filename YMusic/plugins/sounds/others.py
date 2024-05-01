@@ -8,26 +8,21 @@ from YMusic.core import userbot
 from YMusic.misc import SUDOERS
 import config
 
+STOP_COMMAND = ["كافي", "ايقاف", "انهاء"]
 
-PREFIX = config.PREFIX
+PAUSE_COMMAND = ["مؤقت", "وكف"]
 
-RPREFIX = config.RPREFIX
+RESUME_COMMAND = ["استمرار"]
 
-STOP_COMMAND = ["STOP", "CHUP"]
+MUTE_COMMAND = ["كتم"]
 
-PAUSE_COMMAND = ["PAUSE"]
+UNMUTE_COMMAND = ["رفع"]
 
-RESUME_COMMAND = ["RESUME"]
+VOLUME_COMMAND = ["ضبط", "اضبط"]
 
-MUTE_COMMAND = ["MUTE"]
+LOOP_COMMAND = ["تكرار"]
 
-UNMUTE_COMMAND = ["UNMUTE"]
-
-VOLUME_COMMAND = ["VOL", "VOLUME"]
-
-LOOP_COMMAND = ["LOOP"]
-
-LOOPEND_COMMAND = ["ENDLOOP"]
+LOOPEND_COMMAND = ["انهي"]
 
 
 @app.on_message(filters.command(STOP_COMMAND, PREFIX))
