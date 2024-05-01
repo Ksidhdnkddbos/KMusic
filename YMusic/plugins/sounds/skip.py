@@ -16,7 +16,7 @@ import time
 
 import config
 
-SKIP_COMMAND = ["SKIP"]
+SKIP_COMMAND = ["سكب", "تخطي"]
 
 PREFIX = config.PREFIX
 
