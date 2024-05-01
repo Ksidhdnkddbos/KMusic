@@ -12,7 +12,7 @@ import time
 
 import config
 
-PLAY_COMMAND = ["P", "PLAY"]
+PLAY_COMMAND = ["شغل", "تشغيل"]
 
 PREFIX = config.PREFIX
 
