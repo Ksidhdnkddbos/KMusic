@@ -25,7 +25,8 @@ LOOP_COMMAND = ["تكرار"]
 LOOPEND_COMMAND = ["انهي"]
 
 
-@app.on_message(filters.command(STOP_COMMAND))
+@app.on_message(filters.command(STOP_COMMAND)
+)
 async def _stop(_, message):
     # Get administrators
     administrators = []
@@ -42,7 +43,8 @@ async def _stop(_, message):
         return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
 
 
-@app.on_message(filters.command(STOP_COMMAND))
+@app.on_message(filters.command(STOP_COMMAND)
+)
 async def _stop(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("You forgot to pass an argument")
@@ -52,7 +54,8 @@ async def _stop(_, message):
         await message.reply_text(Text)
 
 
-@app.on_message(filters.command(PAUSE_COMMAND))
+@app.on_message(filters.command(PAUSE_COMMAND)
+)
 async def _pause(_, message):
     # Get administrators
     administrators = []
@@ -65,7 +68,8 @@ async def _pause(_, message):
         return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
 
 
-@app.on_message(filters.command(PAUSE_COMMAND))
+@app.on_message(filters.command(PAUSE_COMMAND)
+)
 async def _pause(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("You forgot to pass an argument")
@@ -75,7 +79,8 @@ async def _pause(_, message):
         await message.reply_text(Text)
 
 
-@app.on_message(filters.command(RESUME_COMMAND))
+@app.on_message(filters.command(RESUME_COMMAND)
+)
 async def _resume(_, message):
     # Get administrators
     administrators = []
@@ -88,7 +93,8 @@ async def _resume(_, message):
         return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
 
 
-@app.on_message(filters.command(RESUME_COMMAND))
+@app.on_message(filters.command(RESUME_COMMAND)
+)
 async def _resume(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("You forgot to pass an argument")
@@ -98,7 +104,8 @@ async def _resume(_, message):
         await message.reply_text(Text)
 
 
-@app.on_message(filters.command(MUTE_COMMAND))
+@app.on_message(filters.command(MUTE_COMMAND)
+)
 async def _mute(_, message):
     if message.from_user and message.from_user.is_self:
         reply = message.edit
@@ -108,7 +115,8 @@ async def _mute(_, message):
     await reply(Text)
 
 
-@app.on_message(filters.command(MUTE_COMMAND))
+@app.on_message(filters.command(MUTE_COMMAND)
+)
 async def _mute(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("You forgot to pass an argument")
@@ -118,13 +126,15 @@ async def _mute(_, message):
         await message.reply_text(Text)
 
 
-@app.on_message(filters.command(UNMUTE_COMMAND))
+@app.on_message(filters.command(UNMUTE_COMMAND)
+)
 async def _unmute(_, message):
     Text = await userbot.unmute(message.chat.id)
     await message.reply_text(Text)
 
 
-@app.on_message(filters.command(UNMUTE_COMMAND))
+@app.on_message(filters.command(UNMUTE_COMMAND)
+)
 async def _unmute(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("You forgot to pass an argument")
@@ -134,7 +144,8 @@ async def _unmute(_, message):
         await message.reply_text(Text)
 
 
-@app.on_message(filters.command(VOLUME_COMMAND))
+@app.on_message(filters.command(VOLUME_COMMAND)
+)
 async def _volume(_, message):
     try:
         vol = int(message.text.split()[1])
@@ -144,7 +155,8 @@ async def _volume(_, message):
     await message.reply_text(Text)
 
 
-@app.on_message(filters.command(LOOP_COMMAND))
+@app.on_message(filters.command(LOOP_COMMAND)
+)
 async def _loop(_, message):
     # Get administrators
     administrators = []
