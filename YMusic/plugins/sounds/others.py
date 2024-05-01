@@ -17,17 +17,17 @@ STOP_COMMAND = ["انهاء", "ايقاف"]
 
 PAUSE_COMMAND = ["مؤقت", "وكف"]
 
-RESUME_COMMAND = ["RESUME"]
+RESUME_COMMAND = ["استمرار"]
 
-MUTE_COMMAND = ["MUTE"]
+MUTE_COMMAND = ["كتم"]
 
-UNMUTE_COMMAND = ["UNMUTE"]
+UNMUTE_COMMAND = ["رفع"]
 
-VOLUME_COMMAND = ["VOL", "VOLUME"]
+VOLUME_COMMAND = ["ضبط", "اضبط"]
 
-LOOP_COMMAND = ["LOOP"]
+LOOP_COMMAND = ["تكرار"]
 
-LOOPEND_COMMAND = ["ENDLOOP"]
+LOOPEND_COMMAND = ["انهي"]
 
 
 @app.on_message(filters.command(STOP_COMMAND, PREFIX))
