@@ -25,7 +25,7 @@ LOOP_COMMAND = ["تكرار"]
 LOOPEND_COMMAND = ["انهي"]
 
 
-@app.on_message(filters.command(STOP_COMMAND, PREFIX))
+@app.on_message(filters.command(STOP_COMMAND))
 async def _stop(_, message):
     # Get administrators
     administrators = []
