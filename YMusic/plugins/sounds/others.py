@@ -13,9 +13,9 @@ PREFIX = config.PREFIX
 
 RPREFIX = config.RPREFIX
 
-STOP_COMMAND = ["STOP", "CHUP"]
+STOP_COMMAND = ["انهاء", "ايقاف"]
 
-PAUSE_COMMAND = ["PAUSE"]
+PAUSE_COMMAND = ["مؤقت", "وكف"]
 
 RESUME_COMMAND = ["RESUME"]
 
