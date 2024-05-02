@@ -80,7 +80,7 @@ async def _aPlay(_, message):
                     return
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{message.reply_to_message.audio.title[:19]}]({message.reply_to_message.link})\nDuration:- {message.reply_to_message.audio.duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{message.reply_to_message.audio.title[:19]}]({message.reply_to_message.link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.audio.duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
     elif (len(message.command)) < 2:
         await message.reply_text("Song name kon dalega mai? 🤔")
     else:
@@ -112,7 +112,7 @@ async def _aPlay(_, message):
                 add_to_queue(chat_id, title[:19], duration, songlink, link)
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}\nowner:- [⏤͟͞ 𓃬 𝗞ِ𝗮َِ𝗿ِٕ𝗮َِ𝗿◝ .](yttps://t.me/k_r_9k)\n طلب : {message.from_user.mention}", disable_web_page_preview=True)
+                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}\n𝑟𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {message.from_user.mention}", disable_web_page_preview=True)
 
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
@@ -141,4 +141,4 @@ async def _raPlay(_, message):
                     duration = "Playing From LiveStream"
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
