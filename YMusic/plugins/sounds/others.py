@@ -15,15 +15,15 @@ RPREFIX = config.RPREFIX
 
 STOP_COMMAND = ["كافي", "ايقاف", "انهاء]
 
-PAUSE_COMMAND = ["PAUSE"]
+PAUSE_COMMAND = ["مؤقت", "وكف"]
 
-RESUME_COMMAND = ["RESUME"]
+RESUME_COMMAND = ["استمرار"]
 
 MUTE_COMMAND = ["كتم"]
 
 UNMUTE_COMMAND = ["رفع"]
 
-VOLUME_COMMAND = ["VOL", "VOLUME"]
+VOLUME_COMMAND = ["ضبط", "اضبط"]
 
 LOOP_COMMAND = ["تكرار"]
 
@@ -44,7 +44,7 @@ async def _stop(_, message):
             pass
         await message.reply_text(Text)
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
 @app.on_message(filters.command(STOP_COMMAND, RPREFIX))
