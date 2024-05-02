@@ -36,13 +36,13 @@ async def _aSkip(_, message):
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         loop = await get_loop(chat_id)
         if loop != 0:
-            return await message.reply_text(f"Loop is enabled for the current song. Please disable it with {PREFIX}endloop to skip the song.")
+            return await message.reply_text(f"-› تم تفعـيل وضـع التكـرار للـملف المشـغل حاليـا \n-› يمكـنك تعطيـلة بأستخـدام انهي .")
         if chat_id in QUEUE:
             chat_queue = get_queue(chat_id)
             if len(chat_queue) == 1:
                 clear_queue(chat_id)
                 await stop(chat_id)
-                await message.reply_text(f"There is no next track. I'm leaving the voice chat...")
+                await message.reply_text(f"-› ماكـو شـي بقائمـة الانتـظار تم المغـادرة .")
                 return
 
             else:
@@ -61,12 +61,13 @@ async def _aSkip(_, message):
                     finish_time = time.time()
                     pop_an_item(chat_id)
                     total_time_taken = str(int(start_time - finish_time)) + "s"
-                    await app.send_message(chat_id, f"Playing Your Song\n\nSongName:- [{title}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+                    await app.send_message(chat_id, f"-› من قائمـة الأنتـظار .\n\n
+S𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
                     # return [title, duration, link, finish_time]
                 except Exception as e:
                     return await app.send_message(chat_id, f"Error:- <code>{e}</code>")
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صلاحـيات تـرى .")
 
 
 async def stop(chat_id):
