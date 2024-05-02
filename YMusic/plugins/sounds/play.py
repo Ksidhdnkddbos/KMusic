@@ -66,9 +66,9 @@ async def _aPlay(_, message):
         if message.reply_to_message.audio or message.reply_to_message.voice:
             input_filename, m = await processReplyToMessage(message)
             if input_filename is None:
-                await message.reply_text("Audio pe reply kon karega mai? ya phir song link kon dalega mai? 🤔")
+                await message.reply_text("-› رد على ملـف صـوتي أو شـي للبـحث .")
                 return
-            await m.edit("Rukja...Tera Audio Play karne vala hu...")
+            await m.edit(" سيَتمَ اެݪتشغِيݪ اެلانِ .")
             Status, Text = await userbot.playAudio(chat_id, input_filename)
             if Status == False:
                 await m.edit(Text)
@@ -80,18 +80,18 @@ async def _aPlay(_, message):
                     return
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{message.reply_to_message.audio.title[:19]}]({message.reply_to_message.link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.audio.duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
+                await m.edit(f"-› تـم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{message.reply_to_message.audio.title[:19]}]({message.reply_to_message.link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.audio.duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
     elif (len(message.command)) < 2:
-        await message.reply_text("Song name kon dalega mai? 🤔")
+        await message.reply_text("-› الامـر غلـط ترى .")
     else:
-        m = await message.reply_text("Rukja...Tera gaana dhund raha hu...")
+        m = await message.reply_text(" تَـم اެݪبَـحثَ .")
         query = message.text.split(" ", 1)[1]
         try:
             title, duration, link = ytDetails.searchYt(query)
         except Exception as e:
             await message.reply_text(f"Error:- <code>{e}</code>")
             return
-        await m.edit("Rukja...Tera gaana download kar raha hu...")
+        await m.edit("-› جـاري التشغـيل .")
         format = "bestaudio"
         resp, songlink = await ytdl(format, link)
         if resp == 0:
@@ -100,7 +100,7 @@ async def _aPlay(_, message):
             if chat_id in QUEUE:
                 queue_num = add_to_queue(
                     chat_id, title[:19], duration, songlink, link)
-                await m.edit(f"# {queue_num}\n{title[:19]}\nTera gaana queue me daal diya hu")
+                await m.edit(f"# {queue_num}\n{title[:19]}\nاެبشࢪ عيني ضفتها ݪݪانتضاࢪ .")
                 return
             # await asyncio.sleep(1)
             Status, Text = await userbot.playAudio(chat_id, songlink)
@@ -112,22 +112,22 @@ async def _aPlay(_, message):
                 add_to_queue(chat_id, title[:19], duration, songlink, link)
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}\n𝑟𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {message.from_user.mention}", disable_web_page_preview=True)
+                await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}\n𝑟𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {message.from_user.mention}", disable_web_page_preview=True)
 
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
 async def _raPlay(_, message):
     start_time = time.time()
     if (message.reply_to_message) is not None:
-        await message.reply_text("Currently this is not supported")
+        await message.reply_text("-› خـطأ .")
     elif (len(message.command)) < 3:
-        await message.reply_text("You Forgot To Pass An Argument")
+        await message.reply_text("-› الأمـر خـطأ .")
     else:
-        m = await message.reply_text("Searching Your Query...")
+        m = await message.reply_text("-› التحميـل .")
         query = message.text.split(" ", 2)[2]
         msg_id = message.text.split(" ", 2)[1]
         title, duration, link = ytDetails.searchYt(query)
-        await m.edit("Downloading...")
+        await m.edit("-› يجـري التحميـل ...")
         format = "bestaudio"
         resp, songlink = await ytdl(format, link)
         if resp == 0:
@@ -141,4 +141,4 @@ async def _raPlay(_, message):
                     duration = "Playing From LiveStream"
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
+                await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
