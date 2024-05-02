@@ -13,7 +13,7 @@ PREFIX = config.PREFIX
 
 RPREFIX = config.RPREFIX
 
-STOP_COMMAND = ["كافي", "ايقاف"]
+STOP_COMMAND = ["كافي", "ايقاف", "انهاء]
 
 PAUSE_COMMAND = ["PAUSE"]
 
