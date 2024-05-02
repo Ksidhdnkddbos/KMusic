@@ -5,7 +5,6 @@ import yt_dlp
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch
 from YMusic import app
-from YMusic.utils.filters import command
 
 
 def time_to_seconds(time):
