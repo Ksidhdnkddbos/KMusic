@@ -61,8 +61,7 @@ async def _aSkip(_, message):
                     finish_time = time.time()
                     pop_an_item(chat_id)
                     total_time_taken = str(int(start_time - finish_time)) + "s"
-                    await app.send_message(chat_id, f"-› من قائمـة الأنتـظار .\n\n
-S𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
+                    await app.send_message(chat_id, f"-› من قائمـة الأنتـظار .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
                     # return [title, duration, link, finish_time]
                 except Exception as e:
                     return await app.send_message(chat_id, f"Error:- <code>{e}</code>")
