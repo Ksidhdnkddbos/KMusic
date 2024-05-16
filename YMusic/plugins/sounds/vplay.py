@@ -99,7 +99,7 @@ async def _vPlay(_, message):
                     await m.edit(f"# {queue_num}\n{message.reply_to_message.video.title[:19]}\n-› تمـت الأضـافه .")
                     return
                 finish_time = time.time()
-                total_time_taken = str(int(finish_time - start_time)) + "ثانيـةة"
+                total_time_taken = str(int(finish_time - start_time)) + "s"
                 await m.edit(f"تم تشغـيل الفيـديو بنجـاح .\n\nV𝑖𝑑𝑒𝑜N𝑎𝑚𝑒:- [{message.reply_to_message.video.title[:19]}]({message.reply_to_message.link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.video.duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
 
     elif (len(message.command)) < 2:
@@ -135,5 +135,5 @@ async def _vPlay(_, message):
             # Trigger playback of the next video in the queue
             await playback_completed(chat_id)
         finish_time = time.time()
-        total_time_taken = str(int(finish_time - start_time)) + "ثانيـةة"
+        total_time_taken = str(int(finish_time - start_time)) + "s"
         await m.edit(f"تم تشغـيل الفيـديو بنجـاح .\n\nV𝑖𝑑𝑒𝑜N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
