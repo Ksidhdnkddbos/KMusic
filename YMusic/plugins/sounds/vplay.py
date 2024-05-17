@@ -12,7 +12,7 @@ import time
 
 import config
 
-VIDEO_PLAY = ["VP", "VPLAY"]
+VIDEO_PLAY = ["فيد", "فيديو"]
 
 PREFIX = config.PREFIX
 
