@@ -11,10 +11,10 @@ from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
-from config import HNDLR
+from config import PREFIX
 
 
-@Client.on_message(filters.command(["song", "music"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["اغنيه", "music"], prefixes=f"{HNDLR}"))
 async def song(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
