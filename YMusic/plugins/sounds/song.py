@@ -3,6 +3,8 @@ from YMusic.core import userbot
 from YMusic.utils import ytDetails
 from YMusic.utils.queue import QUEUE, add_to_queue
 from YMusic.misc import SUDOERS
+from pyrogram.types import Message
+from youtubesearchpython import SearchVideos
 
 from pyrogram import filters
 
@@ -10,10 +12,16 @@ import asyncio
 import random
 import time
 
-from config import PREFIX
+import config
+
+MUSIC_COMMAND = ["اغنيه"]
+
+PREFIX = config.PREFIX
+
+RPREFIX = config.RPREFIX
 
 
-@Client.on_message(filters.command(["اغنيه", "music"], prefixes=f"{HNDLR}"))
+@app.on_message((filters.command(MUSIC_COMMAND, PREFIX) | filters.command(MUSIC_COMMAND, RPREFIX)) & filters.group)
 async def song(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
