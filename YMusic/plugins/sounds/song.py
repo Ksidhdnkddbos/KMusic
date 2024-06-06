@@ -1,13 +1,8 @@
-from __future__ import unicode_literals
 import asyncio
 import math
 import os
 import time
-import aiofiles
-import aiohttp
-import wget
-from pyrogram import Client, filters
-from pyrogram.errors import FloodWait, MessageNotModified
+from pyrogram import filters
 from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
