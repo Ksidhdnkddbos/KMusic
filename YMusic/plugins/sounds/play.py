@@ -142,3 +142,26 @@ async def _raPlay(_, message):
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
                 await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
+                # deezer download by william butcher bot
+@app.on_message(filters.command("deezer") & self_or_contact_filter)
+async def deezer(_, message):
+    if len(message.command) < 2:
+        await message.reply_text("What's the song you want 🧐")
+        return
+    text = message.text.split(None, 1)[1]
+    query = text.replace(" ", "%20")
+    hike = await message.reply_text("Searching...")
+    try:
+        r = await fetch(f"{ARQ}deezer?query={query}&count=1")
+        title = r[0]["title"]
+        url = r[0]["url"]
+        artist = r[0]["artist"]
+    except Exception as e:
+        await hike.edit(str(e))
+        return
+    await hike.edit("Downloading...")
+    song = await download_song(url)
+    await hike.edit("Uploading...")
+    await message.reply_audio(audio=song, title=title, performer=artist)
+    os.remove(song)
+    await hike.delete()
