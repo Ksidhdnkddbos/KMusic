@@ -60,6 +60,10 @@ async def playWithLinks(link):
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group)
 async def _aPlay(_, message):
+    user_id_to_block =7096220577   # User ID to block
+    if message.from_user and message.from_user.id == user_id_to_block:
+        await message.reply_text("-› لايمكنك استخدام البوت\nام كرش 😂💔 .")
+        return  # Do nothing if the user is blocked
     start_time = time.time()
     chat_id = message.chat.id
     if (message.reply_to_message) is not None:
