@@ -100,7 +100,7 @@ async def _aPlay(_, message):
             if chat_id in QUEUE:
                 queue_num = add_to_queue(
                     chat_id, title[:19], duration, songlink, link)
-                await m.edit(f"# {queue_num}\n{title[:19]}\nاެبشࢪ عيني ضفتها ݪݪانتضاࢪ .")
+                await m.edit(f"# {queue_num}\n{title[:19]}\nاެبشࢪ عيني ضفتها ݪݪانتضاࢪ .\nطلب الحلو:- {message.from_user.mention}")
                 return
             # await asyncio.sleep(1)
             Status, Text = await userbot.playAudio(chat_id, songlink)
