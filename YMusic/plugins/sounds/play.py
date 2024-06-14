@@ -59,61 +59,115 @@ async def playWithLinks(link):
 
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group)
-async def _aPlay(_, message):
-    start_time = time.time()
-    chat_id = message.chat.id
-    if (message.reply_to_message) is not None:
-        if message.reply_to_message.audio or message.reply_to_message.voice:
-            input_filename, m = await processReplyToMessage(message)
-            if input_filename is None:
-                await message.reply_text("-› رد على ملـف صـوتي أو شـي للبـحث .")
-                return
-            await m.edit(" سيَتمَ اެݪتشغِيݪ اެلانِ .")
-            Status, Text = await userbot.playAudio(chat_id, input_filename)
-            if Status == False:
-                await m.edit(Text)
-            else:
-                if chat_id in QUEUE:
-                    queue_num = add_to_queue(
-                        chat_id, message.reply_to_message.audio.title[:19], message.reply_to_message.audio.duration, message.reply_to_message.audio.file_id, message.reply_to_message.link)
-                    await m.edit(f"# {queue_num}\n{message.reply_to_message.audio.title[:19]}\nTera gaana queue me daal diya hu")
-                    return
-                finish_time = time.time()
-                total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"-› تـم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{message.reply_to_message.audio.title[:19]}]({message.reply_to_message.link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.audio.duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
-    elif (len(message.command)) < 2:
-        await message.reply_text("-› الامـر غلـط ترى .")
-    else:
-        m = await message.reply_text(" تَـم اެݪبَـحثَ .")
-        query = message.text.split(" ", 1)[1]
-        try:
-            title, duration, link = ytDetails.searchYt(query)
-        except Exception as e:
-            await message.reply_text(f"Error:- <code>{e}</code>")
-            return
-        await m.edit("-› جـاري التشغـيل .")
-        format = "bestaudio"
-        resp, songlink = await ytdl(format, link)
-        if resp == 0:
-            await m.edit(f"❌ yt-dl issues detected\n\n» `{songlink}`")
-        else:
+async def play(client, m: Message):
+    replied = m.reply_to_message
+    chat_id = m.chat.id
+    m.chat.title
+    if replied:
+        if replied.audio or replied.voice:
+            await m.delete()
+            huehue = await replied.reply("**🥢 | يَتَمِ اެݪتـشغيݪ اެنتـظࢪ قݪـيلاެ**")
+            dl = await replied.download()
+            link = replied.link
+            if replied.audio:
+                if replied.audio.title:
+                    songname = replied.audio.title[:35] + "..."
+                else:
+                    songname = replied.audio.file_name[:35] + "..."
+            elif replied.voice:
+                songname = "Voice Note"
             if chat_id in QUEUE:
-                queue_num = add_to_queue(
-                    chat_id, title[:19], duration, songlink, link)
-                await m.edit(f"# {queue_num}\n{title[:19]}\n**⪼**اެبشࢪ عيني ضفتها ݪݪانتضاࢪ .\n**⪼**طلب الحلو:- {message.from_user.mention}")
-                return
-            # await asyncio.sleep(1)
-            Status, Text = await userbot.playAudio(chat_id, songlink)
-            if Status == False:
-                await m.edit(Text)
+                pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+                await huehue.delete()
+                # await m.reply_to_message.delete()
+                await m.reply_photo(
+                    photo="https://l.top4top.io/p_2363dcjiw1.jpg",
+                    caption=f"""
+**العنوان : [{songname}]({link})
+ايدي الدردشة : {chat_id}
+طلب من : {m.from_user.mention}
+قناة السورس : [ قناة السورس ](t.me/MUSICTTMATRIX)**
+""",
+                )
             else:
-                if duration is None:
-                    duration = "Playing From LiveStream"
-                add_to_queue(chat_id, title[:19], duration, songlink, link)
-                finish_time = time.time()
-                total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}\n𝑟𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {message.from_user.mention}", disable_web_page_preview=True)
+                await call_py.join_group_call(
+                    chat_id,
+                    AudioPiped(
+                        dl,
+                    ),
+                    stream_type=StreamType().pulse_stream,
+                )
+                add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+                await huehue.delete()
+                # await m.reply_to_message.delete()
+                await m.replyhttps_photo(
+                    photo="https://l.top4top.io/p_2363dcjiw1.jpg",
+                    caption=f"""
+**تم تشغيل الاغنية 
+**العنوان : [{songname}]({link})
+ايدي الدردشة : {chat_id}
+طلب من : {m.from_user.mention}
+قناة السورس : [ قناة السورس ](t.me/MUSICTTMATRIX)**
+""",
+                )
 
+    else:
+        if len(m.command) < 2:
+            await m.reply("يجب عليك الرد على الاغنيه او وضع اسمها مع الامر")
+        else:
+            await m.delete()
+            huehue = await m.reply("🔎 جاري البحث الرجاء الانتظار ")
+            query = m.text.split(None, 1)[1]
+            search = ytsearch(query)
+            if search == 0:
+                await huehue.edit("- لم يتم العثور على شيء ")
+            else:
+                songname = search[0]
+                url = search[1]
+                duration = search[2]
+                thumbnail = search[3]
+                hm, ytlink = await ytdl(url)
+                if hm == 0:
+                    await huehue.edit(f"**- عذرا هناك خطأ ما** \n\n`{ytlink}`")
+                else:
+                    if chat_id in QUEUE:
+                        pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
+                        await huehue.delete()
+                        await m.reply_photo(
+                            photo=f"{thumbnail}",
+                            caption=f"""
+**العنوان : [{songname}]({url})
+المدة : {duration}
+ايدي المحادثه : {chat_id}
+طلب من : {m.from_user.mention}
+قناة السورس : [ قناة السورس ](t.me/MUSICTTMATRIX)**
+""",
+                        )
+                    else:
+                        try:
+                            await call_py.join_group_call(
+                                chat_id,
+                                AudioPiped(
+                                    ytlink,
+                                ),
+                                stream_type=StreamType().pulse_stream,
+                            )
+                            add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
+                            await huehue.delete()
+                            # await m.reply_to_message.delete()
+                            await m.reply_photo(
+                                photo=f"{thumbnail}",
+                                caption=f"""
+**بدأ تشغيل الاغنية
+**العنوان : [{songname}]({url})
+المدة : {duration}
+ايدي المحادثه : {chat_id}
+طلب من : {m.from_user.mention}💻
+قناة السورس : [ قناة السورس ](t.me/MUSICTTMATRIX)**
+""",
+                            )
+                        except Exception as ep:
+                            await huehue.edit(f"`{ep}`")
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
 async def _raPlay(_, message):
