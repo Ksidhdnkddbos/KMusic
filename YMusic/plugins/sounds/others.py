@@ -13,15 +13,15 @@ PREFIX = config.PREFIX
 
 RPREFIX = config.RPREFIX
 
-STOP_COMMAND = ["كافي", "ايقاف", "انهاء"]
+STOP_COMMAND = ["ايقاف", "انهاء"]
 
 PAUSE_COMMAND = ["مؤقت", "وكف"]
 
 RESUME_COMMAND = ["استمرار"]
 
-MUTE_COMMAND = ["كتم"]
+MUTE_COMMAND = [" كتم الصوت"]
 
-UNMUTE_COMMAND = ["رفع"]
+UNMUTE_COMMAND = ["رفع الكتم"]
 
 VOLUME_COMMAND = ["ضبط", "اضبط"]
 
