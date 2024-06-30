@@ -11,6 +11,9 @@ OWNER_ID: list[int] = [int(os.getenv("OWNER_ID"))] or []
 
 LOG_GROUP_ID: int = int(os.getenv("LOG_GROUP_ID")) or int()
 
+DATABASE_URL:: str = os.getenv("DATABASE_URL") or str("")
+
+
 PREFIX: str = str("")
 
 RPREFIX: str = str("$")
