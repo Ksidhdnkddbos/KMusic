@@ -23,7 +23,7 @@
         }, 
         "PREFIX": {
             "description": "حط نقطة",
-            "required": true
+            "required": false
             
         },
         "LOG_GROUP_ID": {
