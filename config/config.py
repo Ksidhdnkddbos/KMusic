@@ -4,6 +4,7 @@ load_dotenv()
 
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
+LOG_GROUP_ID = int(getenv("LOG_GROUP_ID")
 SESSION_STRING = getenv("SESSION_STRING")
 OWNER_ID = int(getenv("OWNER_ID", 0))
 COOK_PATH = getenv("COOK_PATH")
