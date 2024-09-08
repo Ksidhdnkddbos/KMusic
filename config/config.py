@@ -11,6 +11,7 @@ OWNER_ID: list[int] = [int(os.getenv("OWNER_ID"))] or []
 
 LOG_GROUP_ID: int = int(os.getenv("LOG_GROUP_ID")) or int()
 
+COOK_PATH = getenv("COOK_PATH")
 
 PREFIX: str = str("")
 
