@@ -9,6 +9,8 @@ from pyrogram import filters
 import asyncio
 import random
 import time
+import http.cookiejar as cookielib
+import os
 
 import config
 
@@ -18,13 +20,35 @@ PREFIX = config.PREFIX
 
 RPREFIX = config.RPREFIX
 
+# مسار ملف الكوكيز
+COOKIES_FILE = "cookies/cookies.txt"
+
+# تحميل الكوكيز من الملف
+def load_cookies():
+    if os.path.exists(COOKIES_FILE):
+        cookie_jar = cookielib.MozillaCookieJar(COOKIES_FILE)
+        cookie_jar.load()
+        return cookie_jar
+    return None
+
+# حفظ الكوكيز في الملف
+def save_cookies(cookie_jar):
+    if not os.path.exists("cookies"):
+        os.makedirs("cookies")
+    cookie_jar.save(COOKIES_FILE)
 
 async def ytdl(format: str, link: str):
-    stdout, stderr = await bash(f'yt-dlp --geo-bypass -g -f "[height<=?720][width<=?1280]" {link}')
+    cookie_jar = load_cookies()
+    if cookie_jar:
+        cookies = "; ".join([f"{cookie.name}={cookie.value}" for cookie in cookie_jar])
+        command = f'yt-dlp --cookies "{cookies}" --geo-bypass -g -f "[height<=?720][width<=?1280]" {link}'
+    else:
+        command = f'yt-dlp --geo-bypass -g -f "[height<=?720][width<=?1280]" {link}'
+    
+    stdout, stderr = await bash(command)
     if stdout:
         return 1, stdout
     return 0, stderr
-
 
 async def bash(cmd):
     process = await asyncio.create_subprocess_shell(
@@ -37,7 +61,6 @@ async def bash(cmd):
     out = stdout.decode().strip()
     return out, err
 
-
 async def processReplyToMessage(message):
     msg = message.reply_to_message
     if msg.audio or msg.voice:
@@ -48,7 +71,6 @@ async def processReplyToMessage(message):
     else:
         return None
 
-
 async def playWithLinks(link):
     if "&" in link:
         pass
@@ -56,7 +78,6 @@ async def playWithLinks(link):
         pass
 
     return 0
-
 
 @app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group)
 async def _aPlay(_, message):
