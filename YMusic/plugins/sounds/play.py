@@ -108,7 +108,10 @@ async def _aPlay(_, message):
         m = await message.reply_text(" تَـم اެݪبَـحثَ .")
         query = message.text.split(" ", 1)[1]
         try:
-            title, duration, link = await ytDetails.searchYt(query)  # تم إضافة await هنا
+            title, duration, link = await ytDetails.searchYt(query)
+            if not link:
+                await m.edit("-› لم يتم العثور على نتائج للاستعلام المقدم.")
+                return
         except Exception as e:
             await message.reply_text(f"Error:- <code>{e}</code>")
             return
@@ -116,7 +119,8 @@ async def _aPlay(_, message):
         format = "bestaudio"
         resp, songlink = await ytdl(format, link)
         if resp == 0:
-            await m.edit(f"❌ yt-dl issues detected\n\n» `{songlink}`")
+            await m.edit(f"❌ حدث خطأ أثناء معالجة الرابط.\n\n» `{songlink}`")
+            return
         else:
             if chat_id in QUEUE:
                 queue_num = add_to_queue(
@@ -133,36 +137,3 @@ async def _aPlay(_, message):
                 finish_time = time.time()
                 total_time_taken = str(int(finish_time - start_time)) + "s"
                 await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}\n𝑟𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {message.from_user.mention}", disable_web_page_preview=True)
-
-
-@app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
-async def _raPlay(_, message):
-    start_time = time.time()
-    if (message.reply_to_message) is not None:
-        await message.reply_text("-› خـطأ .")
-    elif (len(message.command)) < 3:
-        await message.reply_text("-› الأمـر خـطأ .")
-    else:
-        m = await message.reply_text("-› التحميـل .")
-        query = message.text.split(" ", 2)[2]
-        msg_id = message.text.split(" ", 2)[1]
-        try:
-            title, duration, link = await ytDetails.searchYt(query)  # تم إضافة await هنا
-        except Exception as e:
-            await message.reply_text(f"Error:- <code>{e}</code>")
-            return
-        await m.edit("-› يجـري التحميـل ...")
-        format = "bestaudio"
-        resp, songlink = await ytdl(format, link)
-        if resp == 0:
-            await m.edit(f"❌ yt-dl issues detected\n\n» `{songlink}`")
-        else:
-            Status, Text = await userbot.playAudio(msg_id, songlink)
-            if Status == False:
-                await m.edit(Text)
-            else:
-                if duration is None:
-                    duration = "Playing From LiveStream"
-                finish_time = time.time()
-                total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nT𝑖𝑚𝑒 𝑡𝑎𝑘𝑒𝑛 𝑡𝑜 𝑝𝑙𝑎𝑦:- {total_time_taken}", disable_web_page_preview=True)
