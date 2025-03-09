@@ -108,7 +108,7 @@ async def _aPlay(_, message):
         m = await message.reply_text(" تَـم اެݪبَـحثَ .")
         query = message.text.split(" ", 1)[1]
         try:
-            title, duration, link = ytDetails.searchYt(query)
+            title, duration, link = await ytDetails.searchYt(query)  # تم إضافة await هنا
         except Exception as e:
             await message.reply_text(f"Error:- <code>{e}</code>")
             return
@@ -123,7 +123,6 @@ async def _aPlay(_, message):
                     chat_id, title[:19], duration, songlink, link)
                 await m.edit(f"# {queue_num}\n{title[:19]}\n**⪼**اެبشࢪ عيني ضفتها ݪݪانتضاࢪ .\n**⪼**طلب الحلو:- {message.from_user.mention}")
                 return
-            # await asyncio.sleep(1)
             Status, Text = await userbot.playAudio(chat_id, songlink)
             if Status == False:
                 await m.edit(Text)
@@ -147,7 +146,11 @@ async def _raPlay(_, message):
         m = await message.reply_text("-› التحميـل .")
         query = message.text.split(" ", 2)[2]
         msg_id = message.text.split(" ", 2)[1]
-        title, duration, link = ytDetails.searchYt(query)
+        try:
+            title, duration, link = await ytDetails.searchYt(query)  # تم إضافة await هنا
+        except Exception as e:
+            await message.reply_text(f"Error:- <code>{e}</code>")
+            return
         await m.edit("-› يجـري التحميـل ...")
         format = "bestaudio"
         resp, songlink = await ytdl(format, link)
